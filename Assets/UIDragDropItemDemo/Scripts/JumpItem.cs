@@ -10,6 +10,8 @@ public class JumpItem : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             var playerRigidBody = other.gameObject.GetComponent<Rigidbody2D>();
+            var playerVelocity = playerRigidBody.velocity;
+            playerRigidBody.velocity = new Vector2(playerVelocity.x, 0); // reset vy to apply multi-jump
             playerRigidBody.AddForce(jumpForce);
         }
     }
