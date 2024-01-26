@@ -1,8 +1,9 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UIDragDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class UIDragDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerMoveHandler, IPointerExitHandler
 {
     [SerializeField]
     private Image dragSourceImage;
@@ -10,9 +11,19 @@ public class UIDragDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     [SerializeField]
     private GameObject entityPrefab;
 
+    [TextArea]
+    [SerializeField]
+    private string infoText;
+
     private GameObject dragObject;
     private RectTransform dragRectTransform;
+    
     private RectTransform canvasRectTransform;
+
+    private RectTransform infoPanelRectTransform;
+    private float infoPanelWidth;
+    public float hoverDelay = 0.5f;
+    private bool isHovering = false;
 
     // Start is called before the first frame update
     void Start()
@@ -31,8 +42,10 @@ public class UIDragDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         Image dragImage = dragObject.AddComponent<Image>();
         dragImage.sprite = dragSourceImage.sprite;
         dragImage.color = new Color(dragImage.color.r, dragImage.color.g, dragImage.color.b, 0.3f);
-        
         dragObject.SetActive(false);
+
+        infoPanelRectTransform = DragDropItemInfoPanel.Instance.gameObject.GetComponent<RectTransform>();
+        infoPanelWidth = infoPanelRectTransform.rect.width;
     }
     
     private void GenerateEntity()
@@ -42,7 +55,7 @@ public class UIDragDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
             Vector3 spawnPointScreen = canvasRectTransform.TransformPoint(dragRectTransform.anchoredPosition3D);
             Vector3 spawnPointWorld = Camera.main.ScreenToWorldPoint(spawnPointScreen);
             
-            // fix z default value from -10 to 0.
+            // Fix z default value from -10 to 0.
             spawnPointWorld.z = 0;
             Instantiate(entityPrefab, spawnPointWorld, Quaternion.identity);
         }
@@ -50,6 +63,8 @@ public class UIDragDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     
     public void OnBeginDrag(PointerEventData eventData)
     {
+        isHovering = false;
+        
         if (dragObject != null)
         {
             dragObject.SetActive(true);
@@ -74,5 +89,39 @@ public class UIDragDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         }
         
         GenerateEntity();
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        isHovering = true;
+        
+        StartCoroutine(ShowInfoPanelDelayed());
+    }
+    
+    public void OnPointerMove(PointerEventData eventData)
+    {
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRectTransform, eventData.position, eventData.enterEventCamera, out Vector2 localPoint);
+
+        Vector2 offset = localPoint.x + infoPanelWidth <= Screen.width ? new Vector2(10, 10) : new Vector2(- 10 - infoPanelWidth, 10);
+        DragDropItemInfoPanel.Instance.gameObject.transform.localPosition = localPoint + offset;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        isHovering = false;
+        DragDropItemInfoPanel.Instance.SetText("");
+        DragDropItemInfoPanel.Instance.gameObject.SetActive(false);
+    }
+    
+    IEnumerator ShowInfoPanelDelayed()
+    {
+        // delay for a while
+        yield return new WaitForSeconds(hoverDelay);
+        
+        if (isHovering)
+        {
+            DragDropItemInfoPanel.Instance.gameObject.SetActive(true);
+            DragDropItemInfoPanel.Instance.SetText(infoText);
+        }
     }
 }
