@@ -30,6 +30,7 @@ public class UIDragDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         dragRectTransform.SetParent(canvasRectTransform);
         Image dragImage = dragObject.AddComponent<Image>();
         dragImage.sprite = dragSourceImage.sprite;
+        dragImage.color = new Color(dragImage.color.r, dragImage.color.g, dragImage.color.b, 0.3f);
         
         dragObject.SetActive(false);
     }
@@ -61,7 +62,7 @@ public class UIDragDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         if (dragObject != null)
         {
             RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRectTransform, eventData.position, eventData.pressEventCamera, out Vector2 localPoint);
-            dragObject.transform.localPosition = localPoint;
+            dragRectTransform.anchoredPosition = localPoint;
         }
     }
 
