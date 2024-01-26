@@ -40,6 +40,7 @@ public class UIDragDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         {
             Vector3 spawnPointScreen = canvasRectTransform.TransformPoint(dragRectTransform.anchoredPosition3D);
             Vector3 spawnPointWorld = Camera.main.ScreenToWorldPoint(spawnPointScreen);
+            
             // fix z default value from -10 to 0.
             spawnPointWorld.z = 0;
             Instantiate(entityPrefab, spawnPointWorld, Quaternion.identity);
