@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3473005967857978571}
   - component: {fileID: 4530442767446834001}
   - component: {fileID: 5954400210738638571}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: SpeedDown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
