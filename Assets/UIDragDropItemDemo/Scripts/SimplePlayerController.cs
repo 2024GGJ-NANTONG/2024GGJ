@@ -46,8 +46,28 @@ public class SimplePlayerController : MonoBehaviour
         speedDownTimer = period;
     }
 
-    private void Start()
+    public void StartSimulating()
     {
+        if (Time.timeScale > 0)
+        {
+            ResetVelocity();
+            transform.position = new Vector3(-8, 0.5f, 0);
+        }
+        Time.timeScale = 1;
+    }
+    
+    public void ResetState()
+    {
+        transform.position = new Vector3(-8, 0.5f, 0);
+        Time.timeScale = 0;
+        ResetVelocity();
+    }
+
+    private void Awake()
+    {
+        // Stop simulating
+        Time.timeScale = 0;
+        
         ResetVelocity();
     }
 
@@ -75,10 +95,9 @@ public class SimplePlayerController : MonoBehaviour
             }
         }
         
-        // test only
         if (transform.position.y <= -10)
         {
-            transform.position = new Vector3(-8, 0.5f, 0);
+            ResetState();
         }
     }
 
