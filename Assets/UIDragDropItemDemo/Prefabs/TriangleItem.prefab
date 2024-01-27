@@ -174,4 +174,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97101c4573be5a64a86c3e8ad195bd9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCollider: {fileID: -7121773784657801205}
+  rigidBody: {fileID: -1886690104959777570}
   jumpForce: {x: 0, y: 300}
