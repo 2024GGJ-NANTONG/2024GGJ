@@ -171,4 +171,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 379446ee0dbe49e7a51ba9c3a726c6bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _instantForce: {x: 0, y: 300}
+  _instantForce: {x: 0, y: 500}
