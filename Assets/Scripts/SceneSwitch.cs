@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using GGJ;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,6 +13,7 @@ public class SceneSwitch : MonoBehaviour
     {
         if(collision.tag.Equals("Player"))
         {
+            GameManager.Instance.ResetSimulation();
             SceneManager.LoadScene(nextScene);
         }
     }

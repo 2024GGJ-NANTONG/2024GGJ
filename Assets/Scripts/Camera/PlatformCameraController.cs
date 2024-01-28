@@ -7,6 +7,9 @@ namespace GGJ
         [SerializeField]
         private Transform playerPos;
 
+        [SerializeField]
+        private Transform sceneBackgroundPos;
+
         public float speed;
 
         private void Start()
@@ -23,6 +26,9 @@ namespace GGJ
 
                 this.transform.position = this.transform.position + new Vector3(x, y, 0) * speed;
             }
+
+            sceneBackgroundPos.position =
+                new Vector3(transform.position.x, transform.position.y, sceneBackgroundPos.position.z);
         }
 
         private void FixedUpdate()

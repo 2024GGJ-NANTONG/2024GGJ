@@ -65,6 +65,11 @@ namespace GGJ
     
         public void OnBeginDrag(PointerEventData eventData)
         {
+            if (GameManager.Instance.IsSimulating)
+            {
+                return;
+            }
+            
             isHovering = false;
     
             if (dragObject != null)
@@ -76,6 +81,11 @@ namespace GGJ
     
         public void OnDrag(PointerEventData eventData)
         {
+            if (GameManager.Instance.IsSimulating)
+            {
+                return;
+            }
+            
             if (dragObject != null)
             {
                 RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRectTransform, eventData.position,
@@ -86,6 +96,11 @@ namespace GGJ
     
         public void OnEndDrag(PointerEventData eventData)
         {
+            if (GameManager.Instance.IsSimulating)
+            {
+                return;
+            }
+            
             if (dragObject != null)
             {
                 dragObject.SetActive(false);

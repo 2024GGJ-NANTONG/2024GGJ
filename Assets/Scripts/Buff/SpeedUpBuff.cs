@@ -21,7 +21,7 @@ namespace GGJ
             {
                 // if facing right
                 float increasedX;
-                if (_ownerRigidBody.velocity.x > 0)
+                if (_ownerRigidBody.velocity.x >= 0)
                 {
                     increasedX = _ownerRigidBody.velocity.x + SpeedUpValue;
                 }
@@ -40,7 +40,7 @@ namespace GGJ
             {
                 // if facing right
                 float increasedX;
-                if (_ownerRigidBody.velocity.x > 0)
+                if (_ownerRigidBody.velocity.x >= 0)
                 {
                     increasedX = Mathf.Max(0, _ownerRigidBody.velocity.x - SpeedUpValue);
                 }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace GGJ
@@ -6,16 +7,21 @@ namespace GGJ
     {
         [SerializeField]
         private PlayerInstance _playerInstance;
-    
+
+        private void Awake()
+        {
+            BuffManager.Instance.AddNewOwner(_playerInstance);
+
+            GameManager.Instance.InitPlayerInstance(_playerInstance);
+            
+            GameManager.Instance.InitBGM();
+        }
+
         // Start is called before the first frame update
         void Start()
         {
             Time.timeScale = 0.0f;
-        
-            BuffManager.Instance.AddNewOwner(_playerInstance);
-
-            GameManager.Instance.InitPlayerInstance(_playerInstance);
-        
+            
             UIManager.Instance.OnPlayButtonClicked = () =>
             {
                 GameManager.Instance.StartSimulating();
@@ -24,6 +30,11 @@ namespace GGJ
             UIManager.Instance.OnResetButtonClicked = () =>
             {
                 GameManager.Instance.ResetSimulation();
+            };
+            
+            UIManager.Instance.OnReloadButtonClicked = () =>
+            {
+                GameManager.Instance.ReloadCurrentLevel();
             };
         
             UIManager.Instance.InitCanvasAndEventSystem();

@@ -17,6 +17,7 @@ namespace GGJ
             var playerInstance = GetPlayerComponent<PlayerInstance>(other);
             if (playerInstance != null)
             {
+                var playerRigidBody = GetPlayerComponent<Rigidbody2D>(other);
                 if (_isPhysicsEnabled)
                 {
                     if (!playerInstance.AddNewBuff(GetBuffType(), out var buffInstance))
@@ -33,6 +34,8 @@ namespace GGJ
                     }
 
                     addedBuff.InstanceForce = _instantForce;
+                    
+                    playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, 0); // reset vy to apply multi-jump
             
                     DisablePhysics();
                     Invoke(nameof(EnablePhysics), 0.4f);
