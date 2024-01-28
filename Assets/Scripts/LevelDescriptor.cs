@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace GGJ
 {
@@ -35,6 +36,11 @@ namespace GGJ
             UIManager.Instance.OnReloadButtonClicked = () =>
             {
                 GameManager.Instance.ReloadCurrentLevel();
+            };
+            
+            UIManager.Instance.OnHomeButtonClicked = () =>
+            {
+                Application.Quit(0);
             };
         
             UIManager.Instance.InitCanvasAndEventSystem();

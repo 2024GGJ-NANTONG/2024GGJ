@@ -13,6 +13,7 @@ namespace GGJ
         public UnityAction OnPlayButtonClicked;
         public UnityAction OnResetButtonClicked;
         public UnityAction OnReloadButtonClicked;
+        public UnityAction OnHomeButtonClicked;
 
         private bool _isInitialized;
         
@@ -28,6 +29,7 @@ namespace GGJ
                 _canvas.transform.Find("PlayButton").GetComponent<Button>().onClick.AddListener(OnPlayButtonClicked);
                 _canvas.transform.Find("ResetButton").GetComponent<Button>().onClick.AddListener(OnResetButtonClicked);
                 _canvas.transform.Find("ReloadButton").GetComponent<Button>().onClick.AddListener(OnReloadButtonClicked);
+                _canvas.transform.Find("HomeButton").GetComponent<Button>().onClick.AddListener(OnHomeButtonClicked);
             
                 var eventSystemPrefab = Resources.Load<GameObject>("Prefabs/UI/EventSystem");
                 var eventSystemObject = Instantiate(eventSystemPrefab, transform);
