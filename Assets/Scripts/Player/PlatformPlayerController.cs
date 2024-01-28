@@ -6,6 +6,8 @@ namespace GGJ
     {
         [SerializeField]
         private float _baseMoveSpeed = 3f;
+
+        public float InitialSpeed => _baseMoveSpeed;
         
         private void Awake()
         {

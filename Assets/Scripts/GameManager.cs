@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,6 +8,7 @@ namespace GGJ
     {
         private PlayerInstance _playerInstance;
         private Rigidbody2D _playerRigidBody;
+        private PlatformPlayerController _playerController;
         private Vector3 _playerSpawnPoint;
         private Vector2 _playerInitialVelocity;
         private PlatformCameraController _camera;
@@ -30,8 +32,9 @@ namespace GGJ
         {
             _playerInstance = playerInstance;
             _playerRigidBody = _playerInstance.gameObject.GetComponent<Rigidbody2D>();
+            _playerController = _playerInstance.gameObject.GetComponent<PlatformPlayerController>();
             _playerSpawnPoint = _playerInstance.transform.position;
-            _playerInitialVelocity = _playerRigidBody.velocity;
+            _playerInitialVelocity = new Vector2(_playerController.InitialSpeed, 0);
             _camera = FindAnyObjectByType<PlatformCameraController>();
         }
         
