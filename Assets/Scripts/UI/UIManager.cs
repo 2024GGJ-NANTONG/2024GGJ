@@ -12,20 +12,27 @@ namespace GGJ
 
         public UnityAction OnPlayButtonClicked;
         public UnityAction OnResetButtonClicked;
+
+        private bool _isInitialized;
         
         public void InitCanvasAndEventSystem()
         {
-            var canvasPrefab = Resources.Load<GameObject>("Prefabs/UI/Canvas");
-            var canvasObject = Instantiate(canvasPrefab, transform);
-            _canvas = canvasObject.GetComponent<Canvas>();
+            if (!_isInitialized)
+            {
+                var canvasPrefab = Resources.Load<GameObject>("Prefabs/UI/Canvas");
+                var canvasObject = Instantiate(canvasPrefab, transform);
+                _canvas = canvasObject.GetComponent<Canvas>();
 
-            // Brute-force binding for now
-            _canvas.transform.Find("PlayButton").GetComponent<Button>().onClick.AddListener(OnPlayButtonClicked);
-            _canvas.transform.Find("ResetButton").GetComponent<Button>().onClick.AddListener(OnResetButtonClicked);
+                // Brute-force binding for now
+                _canvas.transform.Find("PlayButton").GetComponent<Button>().onClick.AddListener(OnPlayButtonClicked);
+                _canvas.transform.Find("ResetButton").GetComponent<Button>().onClick.AddListener(OnResetButtonClicked);
             
-            var eventSystemPrefab = Resources.Load<GameObject>("Prefabs/UI/EventSystem");
-            var eventSystemObject = Instantiate(eventSystemPrefab, transform);
-            _eventSystem = eventSystemObject.GetComponent<EventSystem>();
+                var eventSystemPrefab = Resources.Load<GameObject>("Prefabs/UI/EventSystem");
+                var eventSystemObject = Instantiate(eventSystemPrefab, transform);
+                _eventSystem = eventSystemObject.GetComponent<EventSystem>();
+
+                _isInitialized = true;
+            }
         }
     }
 }

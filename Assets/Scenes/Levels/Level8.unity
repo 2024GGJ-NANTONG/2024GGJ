@@ -321,7 +321,7 @@ GameObject:
   - component: {fileID: 267608859}
   - component: {fileID: 267608858}
   m_Layer: 0
-  m_Name: DemoLevel
+  m_Name: LevelDescriptor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -339,7 +339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20241fc4a852b4d44b1dcc7a65f166df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerInstance: {fileID: 0}
+  _playerInstance: {fileID: 1965247401}
 --- !u!4 &267608859
 Transform:
   m_ObjectHideFlags: 0
@@ -720,7 +720,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b147b0d5078ec94c8a247adea28e9c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPos: {fileID: 0}
+  playerPos: {fileID: 1965247407}
   speed: 0.05
 --- !u!1 &591465547
 GameObject:
